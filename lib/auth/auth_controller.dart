@@ -16,7 +16,6 @@ class AuthController {
       }
 
       await authService.signInWithEmailPassword(email, password);
-      authService.getJwt();
 
       // Mostrar feedback positivo al usuario
       _showSuccess(context, 'Inicio de sesión exitoso');
@@ -63,6 +62,10 @@ class AuthController {
     } catch (e) {
       _showError(context, e.toString());
     }
+  }
+
+  String getJwtString() {
+    return authService.getJwtString();
   }
 
   Future<void> signOut(BuildContext context) async {

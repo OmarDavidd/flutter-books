@@ -50,10 +50,10 @@ class AuthService {
     return user?.email;
   }
 
-  void getJwt() {
+  String getJwtString() {
     final String jwt =
         Supabase.instance.client.auth.currentSession?.accessToken ?? '';
-    print('JWT: $jwt');
+    return jwt;
   }
 
   // Función para parsear errores de Supabase a mensajes amigables
