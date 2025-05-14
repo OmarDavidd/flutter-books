@@ -12,4 +12,9 @@ class Genero {
       descripcion: json['descripcion'],
     );
   }
+
+  @override
+  String toString() {
+    return 'Genero{id: $id, nombre: "$nombre", descripcion: "$descripcion"}';
+  }
 }
