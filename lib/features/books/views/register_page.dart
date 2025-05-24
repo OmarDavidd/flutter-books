@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/app_logo.dart';
-import 'package:flutter_application_1/widgets/custom_button.dart';
-import 'package:flutter_application_1/widgets/custom_text_field.dart';
-import 'package:flutter_application_1/widgets/textStyleCustom.dart';
-import 'package:flutter_application_1/auth/auth_controller.dart';
+import 'package:flutter_application_1/core/widgets/app_logo.dart';
+import 'package:flutter_application_1/core/widgets/custom_button.dart';
+import 'package:flutter_application_1/core/widgets/custom_text_field.dart';
+import 'package:flutter_application_1/core/constants/textStyleCustom.dart';
+import 'package:flutter_application_1/features/auth/controllers/auth_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

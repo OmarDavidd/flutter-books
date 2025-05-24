@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/libro.dart';
+import 'package:flutter_application_1/features/books/helpers/genres.dart';
+import 'package:flutter_application_1/features/books/models/libro.dart';
+import 'package:flutter_application_1/features/rutas.dart'; // Importar AppRoutes
 
 class BookCard extends StatelessWidget {
   final Libro book;
@@ -24,22 +26,38 @@ class BookCard extends StatelessWidget {
       ),
       child: Row(
         children: [
+          // Contenedor para la imagen o el ícono del libro
           Container(
             width: 100,
             height: 150,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              /*
-              image: DecorationImage(
-                image: NetworkImage(
-                  "https://png.pngtree.com/png-clipart/20190918/ourlarge/pngtree-load-the-3273350-png-image_1733730.jpg",
-                ),
-                fit: BoxFit.cover,
-              ),*/
+              // Si hay URLs de imágenes, muestra la primera imagen de red
+              image:
+                  book.urlsImagenes.isNotEmpty
+                      ? DecorationImage(
+                        image: NetworkImage(book.urlsImagenes.first),
+                        fit: BoxFit.cover,
+                        onError: (exception, stackTrace) {
+                          debugPrint('Error al cargar la imagen: $exception');
+                        },
+                      )
+                      : null, // Si no hay imágenes, no se establece un DecorationImage
             ),
+            // Si no hay imágenes, muestra un ícono en el centro del contenedor
+            child:
+                book.urlsImagenes.isEmpty
+                    ? const Center(
+                      child: Icon(
+                        Icons.book, // Ícono de libro por defecto
+                        size: 60,
+                        color: Color(0xFF8C7A6B),
+                      ),
+                    )
+                    : null, // Si hay imagen, no se muestra el ícono
           ),
           Expanded(
             child: Padding(
@@ -49,9 +67,9 @@ class BookCard extends StatelessWidget {
                 children: [
                   Text(
                     book.titulo,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
-                      color: const Color(0xFF5E4B3B),
+                      color: Color(0xFF5E4B3B),
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.bold,
                     ),
@@ -72,7 +90,7 @@ class BookCard extends StatelessWidget {
                     spacing: 4,
                     runSpacing: 4,
                     children:
-                        book.generos.map((genre) {
+                        book.generosIds.map((genreId) {
                           return Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8,
@@ -86,7 +104,11 @@ class BookCard extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              genre.nombre.toString(),
+                              allGenres
+                                  .firstWhere(
+                                    (genre) => genre['id'] == genreId,
+                                  )['nombre']
+                                  .toString(),
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Color(0xFF5E4B3B),
@@ -102,7 +124,11 @@ class BookCard extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle button press
+                        AppRoutes.goTo(
+                          context,
+                          AppRoutes.bookDetails,
+                          arguments: book,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD4A373),

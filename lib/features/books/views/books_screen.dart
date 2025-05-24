@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/auth/auth_controller.dart';
-import 'package:flutter_application_1/models/libro.dart';
-import 'package:flutter_application_1/services/book_service.dart';
-import 'package:flutter_application_1/widgets/card_book.dart';
+import 'package:flutter_application_1/features/auth/controllers/auth_controller.dart';
+import 'package:flutter_application_1/features/books/models/libro.dart';
+import 'package:flutter_application_1/features/books/views/login_page.dart';
+import 'package:flutter_application_1/features/books/services/book_service.dart';
+import 'package:flutter_application_1/features/books/widgets/card_book.dart';
 
 class BooksScreen extends StatefulWidget {
   const BooksScreen({super.key});
@@ -14,11 +15,22 @@ class BooksScreen extends StatefulWidget {
 class _BooksScreenState extends State<BooksScreen> {
   late Future<List<Libro>> futureLibros;
   final BookService bookService = BookService();
-  String searchQuery = ''; //new
+  String searchQuery = '';
+
+  //edit
+  List<Libro> allLibros = [];
+  List<Libro> filteredLibros = [];
+  bool isLoading = true;
+
   final authController = AuthController();
 
   void logout() async {
     await authController.signOut(context);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+      (route) => false,
+    );
   }
 
   @override

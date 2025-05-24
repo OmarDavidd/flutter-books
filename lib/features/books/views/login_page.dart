@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/auth_form.dart';
-import 'package:flutter_application_1/widgets/app_logo.dart';
-import 'package:flutter_application_1/pages/register_page.dart';
-import 'package:flutter_application_1/widgets/custom_button.dart';
-import 'package:flutter_application_1/auth/auth_controller.dart';
+import 'package:flutter_application_1/features/books/widgets/auth_form.dart';
+import 'package:flutter_application_1/core/widgets/app_logo.dart';
+import 'package:flutter_application_1/features/books/views/register_page.dart';
+import 'package:flutter_application_1/core/widgets/custom_button.dart';
+import 'package:flutter_application_1/features/auth/controllers/auth_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

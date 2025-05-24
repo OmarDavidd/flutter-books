@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/textStyleCustom.dart';
-import 'package:flutter_application_1/widgets/custom_text_field.dart';
+import 'package:flutter_application_1/core/constants/textStyleCustom.dart';
+import 'package:flutter_application_1/core/widgets/custom_text_field.dart';
 
 class AuthForm extends StatelessWidget {
   final TextEditingController emailController;

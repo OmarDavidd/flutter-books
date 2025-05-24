@@ -1,0 +1,17 @@
+List allGenres = [
+  {"id": 1, "nombre": "Ficción"},
+  {"id": 2, "nombre": "Ciencia Ficción"},
+  {"id": 3, "nombre": "Fantasía"},
+  {"id": 4, "nombre": "Misterio"},
+  {"id": 5, "nombre": "Thriller"},
+  {"id": 6, "nombre": "Romance"},
+  {"id": 7, "nombre": "Histórica"},
+  {"id": 8, "nombre": "Terror"},
+  {"id": 9, "nombre": "Aventura"},
+  {"id": 10, "nombre": "Biografía"},
+  {"id": 11, "nombre": "Autobiografía"},
+  {"id": 12, "nombre": "Ensayo"},
+  {"id": 13, "nombre": "Poesía"},
+  {"id": 14, "nombre": "Drama"},
+  {"id": 15, "nombre": "Comedia"},
+];
