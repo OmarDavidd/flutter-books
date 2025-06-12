@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/books/widgets/auth_form.dart';
 import 'package:flutter_application_1/core/widgets/app_logo.dart';
-import 'package:flutter_application_1/features/books/views/register_page.dart';
+import 'package:flutter_application_1/features/auth/views/register_page.dart';
 import 'package:flutter_application_1/core/widgets/custom_button.dart';
 import 'package:flutter_application_1/features/auth/controllers/auth_controller.dart';
 

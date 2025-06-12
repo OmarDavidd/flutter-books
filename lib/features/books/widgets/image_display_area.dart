@@ -1,9 +1,6 @@
-// lib/widgets/image_display_area.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/books/config/cloudinary_config.dart';
-import 'package:image_picker/image_picker.dart'; // Solo para el tipo XFile
-import 'package:cloudinary_flutter/image/cld_image.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ImageDisplayArea extends StatelessWidget {
   final XFile? selectedPhoto;

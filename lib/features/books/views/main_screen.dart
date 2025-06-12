@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/books/views/add_libro_screen.dart';
+import 'package:flutter_application_1/features/books/views/biblioteca.dart';
+import 'package:flutter_application_1/features/books/views/historial_intercambios_screen.dart';
 import 'books_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,8 +16,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     const BooksScreen(),
-    const Placeholder(),
-    const Placeholder(),
+    const BibliotecaScreen(),
+    const HistorialIntercambiosScreen(),
     const AddBookScreen(),
   ];
 

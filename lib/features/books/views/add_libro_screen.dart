@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/widgets/custom_button.dart';
-import 'package:flutter_application_1/core/widgets/custom_text_field.dart';
 import 'package:flutter_application_1/features/books/services/book_service.dart';
 import 'package:flutter_application_1/features/books/services/image_upload_service.dart';
 import 'package:flutter_application_1/features/books/widgets/actions_buttons.dart';
@@ -111,22 +109,18 @@ class _AddBookScreenState extends State<AddBookScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF8F0), // Fondo claro y cálido
+      backgroundColor: const Color(0xFFFFF8F0),
       appBar: AppBar(
         title: const Text(
           'Añadir Libro',
           style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold, // Título en negrita
-            fontFamily: "Roboto", // Fuente consistente
+            fontWeight: FontWeight.bold,
+            fontFamily: "Roboto",
           ),
         ),
-        backgroundColor: const Color(
-          0xFF5E4B3B,
-        ), // Color de la barra de aplicación
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ), // Color de los iconos del AppBar
+        backgroundColor: const Color(0xFF5E4B3B),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -138,13 +132,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
               Text(
                 'Añadir libro:',
                 style: TextStyle(
-                  fontSize: 20, // Tamaño de fuente más grande
-                  fontWeight: FontWeight.bold, // Negrita
-                  color: const Color(0xFF5E4B3B), // Color de texto oscuro
-                  fontFamily: "Roboto", // Fuente consistente
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF5E4B3B),
+                  fontFamily: "Roboto",
                 ),
               ),
-              const SizedBox(height: 16), // Espacio adicional
+              const SizedBox(height: 16),
               ActionButtons(
                 onPickFromGallery: () => _pickImage(ImageSource.gallery),
                 onPickFromCamera: () => _pickImage(ImageSource.camera),
@@ -168,7 +162,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                 isbnController: _isbnController,
                 yearController: _yearController,
               ),
-              const SizedBox(height: 24), // Espacio antes del botón
+              const SizedBox(height: 24),
               Center(
                 child: CustomIconButton(
                   text: 'Guardar Libro',
@@ -186,7 +180,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                           isbn: _isbnController.text,
                           estadoFisico: _stateController.text,
                           disponibleIntercambio: true,
-                          usuarioId: 2,
+
                           generosIdsEntrada:
                               _genresController.text
                                   .split(',')
@@ -200,7 +194,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
                                   ? [_uploadedImageUrl!]
                                   : [],
                         );
-                        debugPrint(_uploadedImageUrl);
+                        debugPrint(
+                          "lo que llega del con" + _genresController.text,
+                        );
 
                         _formKey.currentState?.reset();
                         setState(() {

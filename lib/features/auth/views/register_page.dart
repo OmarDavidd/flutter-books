@@ -96,6 +96,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed:
                       () => _authController.register(
                         context,
+                        _nombreController.text,
+                        _apellidoController.text,
                         _emailController.text,
                         _passwordController.text,
                         _confirmPasswordController.text,
