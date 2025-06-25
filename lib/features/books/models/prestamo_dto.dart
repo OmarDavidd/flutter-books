@@ -1,7 +1,10 @@
 class PrestamoDTO {
   final int id;
   final String nombreSolicitante;
+  final String idSolicitante;
   final String nombrePropietario;
+  final String idPropietario;
+
   final String nombreLibro;
   final int idLibro;
   final String fechaInicio;
@@ -14,7 +17,9 @@ class PrestamoDTO {
   PrestamoDTO({
     required this.id,
     required this.nombreSolicitante,
+    required this.idSolicitante,
     required this.nombrePropietario,
+    required this.idPropietario,
     required this.nombreLibro,
     required this.idLibro,
     required this.fechaInicio,
@@ -29,11 +34,11 @@ class PrestamoDTO {
     return PrestamoDTO(
       id: json['id'],
       nombreSolicitante: json['nombreSolicitante'],
+      idSolicitante: json['idSolicitante'] ?? "",
       nombrePropietario: json['nombrePropietario'],
+      idPropietario: json['idPropietario'] ?? "",
       nombreLibro: json['nombreLibro'],
-      idLibro:
-          json['idLibro'] ??
-          0, // Aseguramos que idLibro tenga un valor por defecto
+      idLibro: json['idLibro'] ?? 0,
       fechaInicio: json['fechaInicio'] ?? "",
       fechaDevolucionEsperada: json['fechaDevolucionEsperada'] ?? "",
       duracion: json['duracion'],
@@ -43,12 +48,13 @@ class PrestamoDTO {
     );
   }
 
-  // Método para convertir a Map (útil para JSON)
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'nombreSolicitante': nombreSolicitante,
+      'idSolicitante': idSolicitante,
       'nombrePropietario': nombrePropietario,
+      'idPropietario': idPropietario,
       'nombreLibro': nombreLibro,
       'idLibro': idLibro,
       'fechaInicio': fechaInicio,
@@ -66,7 +72,9 @@ class PrestamoDTO {
     return 'PrestamoDTO{'
         'id: $id, '
         'solicitante: $nombreSolicitante, '
+        'idSolicitante: $idSolicitante, '
         'propietario: $nombrePropietario, '
+        'idPropietario: $idPropietario, '
         'libro: $nombreLibro, '
         'idLibro: $idLibro, '
         'inicio: $fechaInicio, '

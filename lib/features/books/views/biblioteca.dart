@@ -56,6 +56,7 @@ class _BibliotecaScreenState extends State<BibliotecaScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF8F0),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Mis Libros',
           style: TextStyle(

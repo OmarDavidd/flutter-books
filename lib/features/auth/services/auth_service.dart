@@ -50,6 +50,12 @@ class AuthService {
     return user?.email;
   }
 
+  String? getCurrentUserId() {
+    final session = _supabase.auth.currentSession;
+    final user = session?.user;
+    return user?.id;
+  }
+
   String getJwtString() {
     final String jwt =
         Supabase.instance.client.auth.currentSession?.accessToken ?? '';

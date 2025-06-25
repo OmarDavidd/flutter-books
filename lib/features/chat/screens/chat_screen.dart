@@ -27,6 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
   late WebSocketService _webSocketService;
   bool _isLoading = true;
   String? _error;
+  bool _isDisposed = false;
 
   @override
   void initState() {
@@ -37,10 +38,15 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _initializeChat() async {
     try {
       // Cargar mensajes existentes
+      debugPrint(
+        "Cargando mensajes para: ${widget.currentUserId} y ${widget.otherUserId}",
+      );
+
       final messages = await ChatApiService.getMessages(
         widget.currentUserId,
         widget.otherUserId,
       );
+      debugPrint("Mensajes cargados: ${messages.length}");
 
       setState(() {
         _messages.addAll(messages);
@@ -58,6 +64,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
       _webSocketService.connect(widget.currentUserId);
     } catch (e) {
+      //
+      if (!mounted) return;
       setState(() {
         _error = 'Failed to load chat: $e';
         _isLoading = false;
@@ -66,6 +74,13 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _handleNewMessage(ChatMessage message) {
+    //
+    if (_isDisposed) return;
+
+    if (!mounted) {
+      return;
+    }
+
     setState(() {
       _messages.add(message);
     });
@@ -85,6 +100,9 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _showError(String error) {
+    //
+    if (_isDisposed || !mounted) return;
+
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
   }
 
@@ -92,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_messageController.text.trim().isEmpty) return;
 
     final message = ChatMessage(
-      id: '', // El backend generará el ID
+      id: '',
       senderId: widget.currentUserId,
       receiverId: widget.otherUserId,
       content: _messageController.text.trim(),
@@ -110,6 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
+    _isDisposed = true;
     _webSocketService.disconnect();
     _messageController.dispose();
     _scrollController.dispose();

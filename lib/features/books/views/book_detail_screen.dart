@@ -113,11 +113,12 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
 
                 if (snapshot.connectionState == ConnectionState.done) ...[
                   if (esMiLibro) ...[
+                    /*
                     CustomIconButton(
                       text: "Editar Libro",
                       onPressed: _editarLibro,
                       icon: Icons.edit,
-                    ),
+                    ),*/
                     CustomIconButton(
                       text: "Eliminar Libro",
                       onPressed: _eliminarLibro,

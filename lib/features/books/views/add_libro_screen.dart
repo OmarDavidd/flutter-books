@@ -111,6 +111,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF8F0),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Añadir Libro',
           style: TextStyle(

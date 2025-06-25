@@ -1,6 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/auth/services/auth_service.dart';
+import 'package:flutter_application_1/features/auth/services/user_service.dart';
 import 'package:flutter_application_1/features/books/models/prestamo_dto.dart';
 import 'package:flutter_application_1/features/books/services/book_service.dart';
 import 'package:flutter_application_1/features/books/models/libro.dart';
@@ -25,10 +25,16 @@ class DetallePrestamoScreen extends StatefulWidget {
 class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
   final BookService _bookService = BookService();
   final PrestamoService _prestamoService = PrestamoService();
+  final AuthService _authService = AuthService();
+  final UserService _userService = UserService();
   late Future<Libro?> _libroFuture;
   bool _isLoading = false;
   DateTime? _selectedDateTime;
   String fechaParaBackend = "";
+
+  String currentUserId = "";
+  String otherUserId = "";
+  String otherUserName = "";
 
   @override
   void initState() {
@@ -136,6 +142,7 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
                     ],
                   ),
                 ),
+
                 /*
                 _buildSeccion(
                   titulo: 'Fechas',
@@ -152,6 +159,7 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
                 ),*/
 
                 // Detalles del encuentro
+                /*
                 _buildSeccion(
                   titulo: 'Detalles del encuentro',
                   contenido: Column(
@@ -172,6 +180,7 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
                         ],
                       ),
                       const SizedBox(height: 8),
+                      /*
                       Row(
                         children: [
                           Icon(
@@ -184,11 +193,10 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
                             widget.prestamo.lugar ?? 'Lugar no especificado',
                           ),
                         ],
-                      ),
+                      ),*/
                     ],
                   ),
-                ),
-
+                ),*/
                 _buildSeccion(
                   titulo: 'Mensaje',
                   contenido: Text(widget.prestamo.mensaje),
@@ -202,15 +210,17 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
                         child: CustomIconButton(
                           text: "Enviar mensaje",
                           icon: Icons.message,
-                          onPressed: () {
+                          onPressed: () async {
+                            await getDataUsers();
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder:
                                     (context) => ChatScreen(
-                                      currentUserId: "1",
-                                      otherUserId: "2",
-                                      otherUserName: "Omar",
+                                      currentUserId: currentUserId,
+                                      otherUserId: otherUserId,
+                                      otherUserName: otherUserName,
                                     ),
                               ),
                             );
@@ -422,6 +432,27 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
     );
   }
 
+  Future<void> getDataUsers() async {
+    try {
+      final email = _authService.getCurrentUserEmail();
+      final name = await _userService.getUserName(email: email!);
+
+      setState(() {
+        if (name == widget.prestamo.nombrePropietario) {
+          currentUserId = widget.prestamo.idPropietario;
+          otherUserId = widget.prestamo.idSolicitante;
+          otherUserName = widget.prestamo.nombreSolicitante;
+        } else {
+          currentUserId = widget.prestamo.idSolicitante;
+          otherUserId = widget.prestamo.idPropietario;
+          otherUserName = widget.prestamo.nombrePropietario;
+        }
+      });
+    } catch (e) {
+      debugPrint('Error obteniendo datos de usuario: $e');
+    }
+  }
+
   Future<void> _cancelarPrestamo() async {
     try {
       setState(() => _isLoading = true);
@@ -429,7 +460,7 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Préstamo cancelado exitosamente')),
       );
-      Navigator.pop(context, true); // Retornar true para indicar éxito
+      Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al cancelar: ${e.toString()}')),
@@ -544,10 +575,11 @@ class _DetallePrestamoScreenState extends State<DetallePrestamoScreen> {
       setState(() => _isLoading = true);
 
       _prestamoService.cambiarEstado(widget.prestamo.id, 7);
+      debugPrint('Fecha seleccionada: ${_selectedDateTime?.toIso8601String()}');
       _prestamoService.cambiarfecha(widget.prestamo.id, fechaParaBackend);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Fecha aceptada exitosamente')),
+        const SnackBar(content: Text('Fecha solicitada exitosamente')),
       );
       Navigator.pop(context, true);
     } catch (e) {

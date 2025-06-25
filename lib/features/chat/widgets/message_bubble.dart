@@ -13,7 +13,7 @@ class MessageBubble extends StatelessWidget {
     required this.isMe,
     this.showDate = false,
   });
-
+  // const Color(0xFFD4A373)
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,10 +34,7 @@ class MessageBubble extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           decoration: BoxDecoration(
-            color:
-                isMe
-                    ? Theme.of(context).primaryColor.withOpacity(0.8)
-                    : Colors.grey[200],
+            color: isMe ? const Color(0xFFD4A373) : Colors.grey[200],
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(isMe ? 12 : 0),
               topRight: Radius.circular(isMe ? 0 : 12),

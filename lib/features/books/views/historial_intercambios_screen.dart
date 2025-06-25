@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/auth/controllers/auth_controller.dart';
+import 'package:flutter_application_1/features/auth/views/login_page.dart';
 import 'package:flutter_application_1/features/books/models/prestamo_dto.dart';
 import 'package:flutter_application_1/features/books/services/prestamo_service.dart';
 
@@ -15,6 +17,16 @@ class _HistorialIntercambiosScreenState
   final PrestamoService _prestamoService = PrestamoService();
   late Future<List<PrestamoDTO>> _solicitudesEnviadas;
   late Future<List<PrestamoDTO>> _solicitudesRecibidas;
+  final authController = AuthController();
+
+  void logout() async {
+    await authController.signOut(context);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+      (route) => false,
+    );
+  }
 
   @override
   void initState() {
@@ -34,6 +46,7 @@ class _HistorialIntercambiosScreenState
       child: Scaffold(
         backgroundColor: const Color(0xFFFFF8F0),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             'Historial de Intercambios',
             style: TextStyle(
@@ -43,6 +56,14 @@ class _HistorialIntercambiosScreenState
             ),
           ),
           backgroundColor: const Color(0xFF5E4B3B),
+          actions: [
+            IconButton(
+              onPressed: logout,
+              icon: const Icon(Icons.logout),
+              color: Colors.white,
+            ),
+          ],
+          iconTheme: const IconThemeData(color: Colors.white),
           bottom: const TabBar(
             tabs: [Tab(text: 'Enviadas'), Tab(text: 'Recibidas')],
             labelColor: Colors.white,

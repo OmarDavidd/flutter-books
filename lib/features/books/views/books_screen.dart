@@ -23,7 +23,7 @@ class _BooksScreenState extends State<BooksScreen> {
   final authController = AuthController();
   final AuthService authService = AuthService();
   final UserService _userService = UserService();
-  String currentUserId = '0'; // Agregar esta variable
+  String currentUserId = '0';
 
   void logout() async {
     await authController.signOut(context);
@@ -85,6 +85,7 @@ class _BooksScreenState extends State<BooksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Explorar Libros',
           style: TextStyle(color: Colors.white),
